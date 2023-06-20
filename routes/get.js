@@ -96,7 +96,7 @@ router.get('/items', authenticateToken, async (req, res) => {
     const { user } = req;
 
     const items = await db.Item.findAll({
-      attributes: ['name', 'price', 'stock'],
+      attributes: ['name', 'price', 'stock', 'sku', 'img_url'],
       include: db.Category
     });
 

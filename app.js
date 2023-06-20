@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var path = require('path');
 
 var getRouter = require('./routes/get');
 var usersRouter = require('./routes/users');
@@ -41,6 +42,17 @@ app.use('/cart', cartRouter);
 app.use('/cart_item', cartItemRouter);
 app.use('/search', searchRouter);
 app.use('/order', orderRouter);
+
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 
 // catch 404 and forward to error handler
