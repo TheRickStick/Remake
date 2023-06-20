@@ -1,0 +1,127 @@
+# This is a StockSalesDB project devolped as an exam. 
+# It is the backend part of a site that could be used for handling auth and e-commerce.
+
+# Getting started: 
+What do you need?
+You will need Node.JS installed on you IDE (for example VSCode), and MySQL for the database.
+
+# Installing: 
+First you will need to clone the repository:
+# Clone the repository
+git clone https://github.com/TheRickStick/Rickard_Sandvik_EP_CA_Aug22FT
+
+# Navigate to directory
+cd Rickard_Sandvik_EP_CA_Aug22FT
+(This assumes you are in the parent directory. If not you will need to provide the corrrect path)
+
+# Install dependencies
+npm install
+
+# Make a .env file in your root directory
+ # .env details
+ DB_USERNAME = "admin"
+ DB_PASSWORD = "P4ssword"
+ DATABASE_NAME = "stocksalesdb"
+ DIALECT = "mysql"
+ DIALECTMODEL = "mysql2"
+ PORT = "3000"
+ HOST = "localhost"
+ JWT_SECRET="MySecretPony"
+
+# Start the server
+# Before you start the server please make sure you have created the database (Instructions further down)
+npm run start
+Now, you should navigate to http://localhost:3000 .
+
+# Note
+ This project uses a .gitignore file to prevent .env and node_modules from being uploaded. If you wish to 
+ upload them yourself you will need to edit the .gitignore file. It is strongly adviced against it, as 
+ node_modules will be installed via npm install and it is bad practice to upload .env info.
+ Furthermore, this project is set up with express view --ejs so it is ready for a front-end
+
+# DataBase
+A MySQL Database called “StockSalesDB” is to be created for this web application.
+
+Use the following SQL script to create an “admin” Database User with all database privileges:
+
+CREATE USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';
+ALTER USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';
+GRANT ALL PRIVILEGES ON database_name.* TO 'admin'@'localhost';
+
+# Running the tests
+This project uses Jest and supertest for testing. 
+To run it type: npm run test
+The username for test is MistenkeligRepeterendeHippi, please do not use that when creating users if you were to run the test after adding users. 
+
+# API Endpoints: 
+
+# Authentication: 
+ POST /login
+ POST /signup
+ DEL /user:id
+
+ # Item endpoints:
+ GET /items
+ POST /item
+ PUT /item/:id
+ DELETE /item/:id
+
+ # Category endpoints: 
+ GET /categories
+ POST /category
+ PUT /category/:id
+ DELETE /category/:id
+
+ # Cart endpoints: 
+ GET /cart
+ GET /allcarts
+ POST /cart_item
+ PUT /cart_item/:id
+ DELETE /cart_item/:id
+ DELETE /cart/:id
+
+ # Order endpoints: 
+ GET /orders
+ GET /allorders
+ POST /order/:id
+ PUT /order/:id
+
+ # Utility endpoints: 
+ POST /setup
+ POST /search
+
+ For detailed information about these endpoints (including parameters, request body structure, and responses), please refer to API Documentation.
+ # Postman url: https://documenter.getpostman.com/view/25739749/2s93sZ6u76
+
+# Notes endpoint
+Please be aware if an order is set to cancelled it cannot be undone. This should be handled with a confirmation prompt in front-end
+
+ # Dependencies
+ The depedencies are as follows:
+ "dependencies": {
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^3.3.1",
+    "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  }
+
+  # Version: 
+  This project was developed using node v16.17.0.
+
+  # Version Control: 
+  This project was developed using GitHub as version control.
+
+  # Project Managment: 
+  This project was developed using Jira as the managment software of choice.
