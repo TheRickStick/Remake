@@ -96,8 +96,12 @@ router.get('/items', authenticateToken, async (req, res) => {
     const { user } = req;
 
     const items = await db.Item.findAll({
-      attributes: ['name', 'price', 'stock', 'sku', 'img_url'],
-      include: db.Category
+      attributes: ['id', 'name', 'price', 'stock', 'description', 'rating', 'img_url'],
+      include: [{
+        model: db.Category,
+        attributes: ['name'],
+        as: 'Category' // make sure this matches the name of the association
+      }]
     });
 
     const filteredItems = items.filter(item => {
@@ -113,6 +117,7 @@ router.get('/items', authenticateToken, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 //GET orders  
 router.get('/orders', authenticateToken, async (req, res) => {

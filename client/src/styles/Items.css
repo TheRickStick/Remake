@@ -36,3 +36,26 @@
     object-fit: cover;
   }
   
+  .item-card img {
+    width: 100px;  /* Set initial width, adjust as needed */
+    height: 100px;  /* Set initial height, adjust as needed */
+    object-fit: cover;  /* This will ensure the image covers the whole area without distortion */
+    transition: transform 0.3s ease-in-out;  /* Animation effect */
+  }
+  
+  .item-card img:hover {
+    transform: scale(1.5);  /* The image will increase to 1.5 times the original size when hovered over */
+  }
+
+  .short-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* change this to the number of lines you want to display */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .long-description {
+    cursor: pointer;
+  }
+  

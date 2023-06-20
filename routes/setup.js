@@ -12,27 +12,30 @@ router.post('/', async (req, res) => {
       return res.status(409).json({ message: "Database already populated" });
     }
 
-    const apiUrl = 'http://143.42.108.232:8888/items/stock';
+    const apiUrl = 'https://fakestoreapi.com/products';
 
     const response = await axios.get(apiUrl);
-
+    
     const jsonData = response.data;
-
-    if (!Array.isArray(jsonData.data)) {
+    
+    if (!Array.isArray(jsonData)) {
       return res.status(500).json({ message: "Invalid data from API", data: jsonData });
     }
-
-    for (const item of jsonData.data) {
+    
+    for (const item of jsonData) {
       const [category] = await db.Category.findOrCreate({ where: { name: item.category } });
       await db.Item.create({
-        name: item.item_name,
-        sku: item.sku,
+        id: item.id, // Added this line to store the id from the FakeStore API
+        name: item.title,
         price: item.price,
-        stock: item.stock_quantity,
-        img_url: item.img_url,
+        description: item.description,
+        img_url: item.image,
+        rating: item.rating.rate, // Storing the rating rate
+        stock: item.rating.count,
         CategoryId: category.id
       });
     }
+    
 
     const roles = ["Admin", "User"];
     for (const role of roles) {

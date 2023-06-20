@@ -26,9 +26,10 @@ router.post('/', async (req, res) => {
       searchOptions.sku = sku;
     }
 
+    // Use the alias 'Category' in your include statement
     const items = await db.Item.findAll({
       where: searchOptions,
-      include: [{ model: db.Category }],
+      include: [{ model: db.Category, as: 'Category' }],
     });
 
     res.json({ items: items });

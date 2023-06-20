@@ -26,12 +26,27 @@ const Category = sequelize.define('Category', {
 });
 
 const Item = sequelize.define('Item', {
-  sku: Sequelize.STRING,
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   name: Sequelize.STRING, 
   price: Sequelize.DECIMAL,
-  stock: Sequelize.INTEGER,
+  description: Sequelize.STRING(1000),
   img_url: Sequelize.STRING,
+  rating: Sequelize.DECIMAL, 
+  stock: Sequelize.INTEGER, 
+  CategoryId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'Categories',
+      key: 'id',
+    },
+  },
 });
+
+
 
 const Cart = sequelize.define('Cart', {
  
@@ -78,8 +93,8 @@ Role.hasMany(User);
 User.hasOne(Cart);
 Cart.belongsTo(User);
 
-Category.hasMany(Item);
-Item.belongsTo(Category);
+Category.hasMany(Item, { as: 'Category' });
+Item.belongsTo(Category, { as: 'Category' });
 
 Cart.belongsToMany(Item, { through: CartItem });
 Item.belongsToMany(Cart, { through: CartItem });
