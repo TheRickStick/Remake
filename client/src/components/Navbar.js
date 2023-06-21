@@ -75,13 +75,17 @@ const Navbar = () => {
         <button className="navButton" onClick={handleLogin}>Login</button>
         
       }
-      
+
       <div className="dropdown">
         <button className="dropbtn">Dropdown</button>
         <div className="dropdown-content">
           <Link to="/items">Go To Items</Link>
           <Link to="/signup"> Signup</Link>
-          <Link to="#">Link 3</Link>
+          {isLoggedIn && (
+            <Link to="/cart">
+              <button className="navButton">My Cart</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

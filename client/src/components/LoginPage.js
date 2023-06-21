@@ -13,29 +13,29 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     const credentials = { username, password };
     console.log('Sending login request with credentials:', credentials);
-    
+  
     try {
       const response = await axios.post('/login', credentials);
-
+  
       console.log('Received response:', response.data);
-
+  
       if (response.data.data && response.data.data.token) {
         // Save token to local storage
         localStorage.setItem('authToken', response.data.data.token);
         
         // Set logged in user and auth state
         setIsLoggedIn(true);
-        setUser(username);  // or setUser(response.data.user) depending on your API response
+        setUser(response.data.data.user);  // or setUser(username) depending on your API response
         
         // Redirect to Home page or other page after successful login
         navigate('/');
       } else {
         alert('Invalid username or password');
       }
-
+  
     } catch (error) {
       console.error('Error during login', error);
     }

@@ -5,8 +5,13 @@ import Items from './components/Items';
 import Navbar from './components/Navbar';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
+import Cart from './components/Cart';
 import AuthContext from './contexts/AuthContext';
 import { SearchResultContext } from './contexts/SearchResultContext';
+import axios from 'axios';
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
+
 
 function App() {
   const [searchResult, setSearchResult] = useState([]);
@@ -31,7 +36,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/items" element={<Items />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />  {/* Add route for SignUpPage */}
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </div>
         </AuthContext.Provider>
